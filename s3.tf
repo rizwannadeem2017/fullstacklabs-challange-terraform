@@ -3,7 +3,7 @@
 resource "random_string" "random" {
   count   = var.s3_count["${var.region}.${var.environment}"]
   length  = 4
-  special = true
+  special = false
   lower   = true
   numeric = false
   upper   = false
