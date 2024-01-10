@@ -5,21 +5,6 @@ variable "region" {
 }
 
 
-variable "access_key" {
-
-  default     = ""
-  description = "aws access key"
-
-}
-
-
-variable "secret_key" {
-
-  default     = ""
-  description = "aws secret key"
-}
-
-
 variable "environment" {
 
   default     = ""
