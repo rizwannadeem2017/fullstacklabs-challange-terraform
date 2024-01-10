@@ -19,7 +19,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: | 
-             core.setFailed(' changes should be merged from staging branch staging')
+             core.setFailed(' changes should be merged from staging branch')
 
       - name: check souce branch from feature or bugfix branch
         if: github.base_ref == 'develop' && !(startsWith(github.head_ref, 'feature/')) || (startsWith(github.head_ref, 'bugfix/')) 
