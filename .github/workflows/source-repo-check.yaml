@@ -1,0 +1,29 @@
+name: source-branch-check
+
+on: [pull_request]
+
+jobs:
+  check-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: check source branch from prod
+        if: contains(fromJson('["master", "main"]'), github.base_ref) && github.head_ref != 'staging'
+        uses: actions/github-script@v6
+        with:
+         script: | 
+           core.setFailed(' changes should be merged from staging branch only')
+
+      - name: check souce branch from staging 
+        if: github.base_ref == 'staging' && github.head_ref != 'develop'
+        uses: actions/github-script@v6
+        with:
+          script: | 
+             core.setFailed(' changes should be merged from staging branch staging')
+
+      - name: check souce branch from feature or bugfix branch
+        if: github.base_ref == 'develop' && !(startsWith(github.head_ref, 'feature/')) || (startsWith(github.head_ref, 'bugfix/')) 
+        uses: actions/github-script@v6
+        with:
+          script: | 
+             core.setFailed(' changes should be merged from starting with feature/ or bugfix/ branch name')
